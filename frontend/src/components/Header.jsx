@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { LogOut, UserPlus, LogIn, BookOpenText } from "lucide-react";
 
-const Navbar = () => {
+const Header = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -97,4 +97,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Header;
