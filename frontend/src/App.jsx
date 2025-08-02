@@ -3,11 +3,11 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Bookmarks from './pages/Bookmarks';
 import Login from './pages/Login';
-import Register from './pages/Register';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Register from './pages/Register'; 
+import Footer from './components/Footer';   
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './components/navbar';
 import './index.css';
 
 function App() {
