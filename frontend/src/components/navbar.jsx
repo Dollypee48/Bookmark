@@ -1,26 +1,35 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { LogOut, UserPlus, LogIn, BookOpenText } from "lucide-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    toast.success('Logged out successfully!');
-    navigate('/login');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    toast.success("Logged out successfully!");
+    setTimeout(() => navigate("/"), 0);
   };
 
   return (
-    <nav className="bg-blue-600 text-white shadow-md">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold">BookmarkApp</div>
-        <div className="flex gap-6">
+    <nav className="bg-white shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        
+        {/* Brand Logo */}
+        <NavLink to="/" className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
+          LinkNest
+        </NavLink>
+
+        {/* Navigation Links */}
+        <div className="hidden md:flex space-x-6">
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? "text-yellow-300 font-semibold" : "hover:text-yellow-200"
+              `px-3 py-1 rounded-full text-sm font-medium transition ${
+                isActive ? "bg-amber-400 text-white" : "hover:bg-amber-100 text-gray-700"
+              }`
             }
           >
             Home
@@ -28,26 +37,34 @@ const Navbar = () => {
           <NavLink
             to="/about"
             className={({ isActive }) =>
-              isActive ? "text-yellow-300 font-semibold" : "hover:text-yellow-200"
+              `px-3 py-1 rounded-full text-sm font-medium transition ${
+                isActive ? "bg-amber-400 text-white" : "hover:bg-amber-100 text-gray-700"
+              }`
             }
           >
             About
           </NavLink>
+        </div>
+
+        {/* Right: Auth Actions */}
+        <div className="flex items-center space-x-4">
           {token ? (
             <>
               <NavLink
                 to="/bookmarks"
                 className={({ isActive }) =>
-                  isActive ? "text-yellow-300 font-semibold" : "hover:text-yellow-200"
+                  `flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium transition ${
+                    isActive ? "bg-amber-400 text-white" : "hover:bg-amber-100 text-gray-700"
+                  }`
                 }
               >
-                My Bookmarks
+                <BookOpenText size={16} /> My Bookmarks
               </NavLink>
               <button
                 onClick={handleLogout}
-                className="hover:text-yellow-200"
+                className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded-full transition"
               >
-                Logout
+                <LogOut size={16} /> Logout
               </button>
             </>
           ) : (
@@ -55,18 +72,22 @@ const Navbar = () => {
               <NavLink
                 to="/login"
                 className={({ isActive }) =>
-                  isActive ? "text-yellow-300 font-semibold" : "hover:text-yellow-200"
+                  `flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium transition ${
+                    isActive ? "bg-amber-400 text-white" : "hover:bg-amber-100 text-gray-700"
+                  }`
                 }
               >
-                Login
+                <LogIn size={16} /> Login
               </NavLink>
               <NavLink
                 to="/register"
                 className={({ isActive }) =>
-                  isActive ? "text-yellow-300 font-semibold" : "hover:text-yellow-200"
+                  `flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium transition ${
+                    isActive ? "bg-amber-400 text-white" : "hover:bg-amber-100 text-gray-700"
+                  }`
                 }
               >
-                Register
+                <UserPlus size={16} /> Register
               </NavLink>
             </>
           )}

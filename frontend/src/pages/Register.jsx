@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,51 +33,65 @@ const Register = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 flex justify-center items-center min-h-[calc(100vh-8rem)]">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">Register</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Name</label>
+    <div className="min-h-screen bg-amber-50 flex items-center justify-center px-4">
+      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md transition-all duration-300 animate-fade-in">
+        <h2 className="text-3xl font-extrabold text-center text-amber-900 mb-6">Create Your Account</h2>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-amber-800 mb-1 font-medium">Full Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your name"
+              className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
+              placeholder="John Doe"
+              required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
+
+          <div>
+            <label className="block text-amber-800 mb-1 font-medium">Email Address</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your email"
+              className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
+              placeholder="you@example.com"
+              required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
+
+          <div className="relative">
+            <label className="block text-amber-800 mb-1 font-medium">Password</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your password"
+              className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
+              placeholder="••••••••"
+              required
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9 text-amber-600"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
           </div>
+
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="w-full bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300"
           >
-            Register
+            Sign Up
           </button>
         </form>
-        <p className="mt-4 text-center">
+
+        <p className="mt-6 text-sm text-center text-amber-800">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-500 hover:underline">
-            Login
+          <Link to="/login" className="font-semibold underline text-amber-700 hover:text-amber-900">
+            Log in here
           </Link>
         </p>
       </div>

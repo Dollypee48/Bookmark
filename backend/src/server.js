@@ -27,6 +27,10 @@ app.use("/api/bookmarks", bookmarkRoutes);
 app.use("/api/tags", tagRoutes);
 app.use("/api/users", userRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Bookmark app backend is running ✅");
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

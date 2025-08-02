@@ -30,7 +30,6 @@ const Bookmarks = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      console.log('Fetched bookmarks:', data);
       setBookmarks(Array.isArray(data) ? data : []);
       const allTags = [...new Set(data.flatMap(bookmark => bookmark.tags || []))];
       setTags(allTags);
@@ -48,7 +47,6 @@ const Bookmarks = () => {
   };
 
   const handleDeleteBookmark = async (id) => {
-    console.log('Deleting bookmark with ID:', id);
     try {
       const response = await fetch(`http://localhost:5000/api/bookmarks/${id}`, {
         method: 'DELETE',
@@ -70,22 +68,37 @@ const Bookmarks = () => {
     : bookmarks;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">My Bookmarks</h1>
-      <BookmarkForm onAdd={handleAddBookmark} />
-      <TagFilter tags={tags} onFilter={setFilterTag} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Array.isArray(filteredBookmarks) && filteredBookmarks.length > 0 ? (
-          filteredBookmarks.map(bookmark => (
-            <BookmarkCard
-              key={bookmark._id}
-              bookmark={bookmark}
-              onDelete={handleDeleteBookmark}
-            />
-          ))
-        ) : (
-          <p className="text-gray-600">No bookmarks found.</p>
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-gray-100 to-amber-100 py-10 px-4 md:px-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">📌 My Bookmarks</h1>
+
+        <div className="bg-white shadow-md rounded-xl p-6 mb-8">
+          <BookmarkForm onAdd={handleAddBookmark} />
+        </div>
+
+       
+        {tags.length > 0 && (
+          <div className="mb-6">
+            <TagFilter tags={tags} onFilter={setFilterTag} />
+          </div>
         )}
+
+       
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredBookmarks.length > 0 ? (
+            filteredBookmarks.map(bookmark => (
+              <BookmarkCard
+                key={bookmark._id}
+                bookmark={bookmark}
+                onDelete={handleDeleteBookmark}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-16 text-gray-600 text-lg">
+              No bookmarks found. Start adding your favorite links! 🌐
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

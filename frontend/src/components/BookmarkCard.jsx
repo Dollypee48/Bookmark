@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { Copy, Trash2, Link2 } from 'lucide-react';
 
 const BookmarkCard = ({ bookmark, onDelete }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -12,29 +13,46 @@ const BookmarkCard = ({ bookmark, onDelete }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
-      <h3 className="text-lg font-semibold text-gray-800">{bookmark.title}</h3>
-      <a href={bookmark.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+    <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-lg p-6 transition hover:shadow-xl duration-300 ease-in-out">
+      <h3 className="text-xl font-bold text-gray-800 mb-1 line-clamp-2">{bookmark.title}</h3>
+
+      <a
+        href={bookmark.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center text-rose-600 hover:underline text-sm break-all"
+      >
+        <Link2 className="w-4 h-4 mr-1" />
         {bookmark.url}
       </a>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {bookmark.tags.map((tag, index) => (
-          <span key={index} className="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded">
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className="mt-4 flex gap-2">
+
+      {bookmark.tags.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {bookmark.tags.map((tag, index) => (
+            <span
+              key={index}
+              className="bg-rose-100 text-rose-800 px-2 py-1 rounded-full text-xs font-medium"
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div className="mt-5 flex items-center gap-3">
         <button
           onClick={handleCopyLink}
-          className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm px-3 py-1.5 rounded-full transition"
         >
-          {isCopied ? 'Copied!' : 'Copy Link'}
+          <Copy className="w-4 h-4" />
+          {isCopied ? 'Copied!' : 'Copy'}
         </button>
+
         <button
           onClick={() => onDelete(bookmark._id)}
-          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+          className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1.5 rounded-full transition"
         >
+          <Trash2 className="w-4 h-4" />
           Delete
         </button>
       </div>
