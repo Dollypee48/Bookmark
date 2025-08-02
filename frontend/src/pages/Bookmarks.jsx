@@ -23,7 +23,7 @@ const Bookmarks = () => {
 
   const fetchBookmarks = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/bookmarks', {
+      const response = await fetch('https://bookmark44.onrender.com/api/bookmarks', {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) {
@@ -48,7 +48,7 @@ const Bookmarks = () => {
 
   const handleDeleteBookmark = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/bookmarks/${id}`, {
+      const response = await fetch(`https://bookmark44.onrender.com/api/bookmarks/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -15,7 +15,7 @@ const BookmarkForm = ({ onAdd }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/bookmarks', {
+      const response = await fetch('https://bookmark44.onrender.com/api/bookmarks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
