@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import BookmarkForm from '../components/BookmarkForm';
 import BookmarkCard from '../components/BookmarkCard';
 import TagFilter from '../components/TagFilter';
-import ShareModal from '../components/ShareModal';
 import { toast } from 'react-toastify';
 
 const Bookmarks = () => {
   const [bookmarks, setBookmarks] = useState([]);
   const [tags, setTags] = useState([]);
   const [filterTag, setFilterTag] = useState('');
-  const [selectedBookmark, setSelectedBookmark] = useState(null);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -79,29 +77,16 @@ const Bookmarks = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.isArray(filteredBookmarks) && filteredBookmarks.length > 0 ? (
           filteredBookmarks.map(bookmark => (
-            <div key={bookmark._id} className="relative">
-              <BookmarkCard
-                bookmark={bookmark}
-                onDelete={handleDeleteBookmark}
-              />
-              <button
-                onClick={() => setSelectedBookmark(bookmark)}
-                className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
-              >
-                Share
-              </button>
-            </div>
+            <BookmarkCard
+              key={bookmark._id}
+              bookmark={bookmark}
+              onDelete={handleDeleteBookmark}
+            />
           ))
         ) : (
           <p className="text-gray-600">No bookmarks found.</p>
         )}
       </div>
-      {selectedBookmark && (
-        <ShareModal
-          bookmark={selectedBookmark}
-          onClose={() => setSelectedBookmark(null)}
-        />
-      )}
     </div>
   );
 };

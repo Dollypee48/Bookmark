@@ -1,23 +1,32 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bookmarkRoutes = require('./routes/bookmarks');
-const tagRoutes = require('./routes/tags');
-const userRoutes = require('./routes/users');
-require('dotenv').config();
+// src/server.js
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const connectDB = require("./config/db");
+const corsOptions = require("./config/corsOptions");
 
+const bookmarkRoutes = require("./routes/bookmarks");
+const tagRoutes = require("./routes/tags");
+const userRoutes = require("./routes/users");
+
+// Load environment variables
+dotenv.config();
+
+// Initialize app
 const app = express();
 
-app.use(cors());
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// Connect to DB
+connectDB();
 
-app.use('/api/bookmarks', bookmarkRoutes);
-app.use('/api/tags', tagRoutes);
-app.use('/api/users', userRoutes);
+// API Routes
+app.use("/api/bookmarks", bookmarkRoutes);
+app.use("/api/tags", tagRoutes);
+app.use("/api/users", userRoutes);
 
+// Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

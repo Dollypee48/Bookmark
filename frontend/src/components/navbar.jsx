@@ -25,6 +25,14 @@ const Navbar = () => {
           >
             Home
           </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? "text-yellow-300 font-semibold" : "hover:text-yellow-200"
+            }
+          >
+            About
+          </NavLink>
           {token ? (
             <>
               <NavLink
@@ -34,14 +42,6 @@ const Navbar = () => {
                 }
               >
                 My Bookmarks
-              </NavLink>
-              <NavLink
-                to="/shared"
-                className={({ isActive }) =>
-                  isActive ? "text-yellow-300 font-semibold" : "hover:text-yellow-200"
-                }
-              >
-                Shared Bookmarks
               </NavLink>
               <button
                 onClick={handleLogout}
